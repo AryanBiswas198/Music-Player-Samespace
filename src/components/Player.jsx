@@ -12,10 +12,10 @@ const Player = ({ currentSong }) => {
         player.unload();
       }
       const sound = new Howl({
-        src: [currentSong.file],
+        src: [currentSong.url],
         html5: true,
         onplay: () => toast.success('Playing!'),
-        onpause: () => toast('Paused'),
+        onpause: () => toast.success('Paused'),
       });
       setPlayer(sound);
       sound.play();
@@ -47,7 +47,6 @@ const Player = ({ currentSong }) => {
 
   return (
     <div className="flex flex-col justify-between p-4 text-white w-1/3">
-      <Toaster />
       {currentSong && (
         <>
           <img src={`https://cms.samespace.com/assets/${currentSong.cover}`} alt="Cover" className="mb-4 rounded" />
