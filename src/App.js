@@ -3,7 +3,7 @@ import MainLayout from "./pages/MainLayout"
 
 function App() {
   return (
-    <div className="">
+    <div className="h-full">
       <MainLayout />
     </div>
   );

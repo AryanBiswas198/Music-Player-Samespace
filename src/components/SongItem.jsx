@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Howl } from 'howler';
 
 const SongItem = ({ song, onSongClick }) => {
+  const [songLength, setSongLength] = useState(null);
+
+  useEffect(() => {
+    const sound = new Howl({
+      src: [song.url],
+      html5: true,
+      preload: true,
+      onload: () => {
+        setSongLength(formatTime(sound.duration()));
+      }
+    });
+  }, [song.url]);
+
+  const formatTime = (secs) => {
+    const minutes = Math.floor(secs / 60);
+    const seconds = Math.floor(secs % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
   return (
     <div
-      className="p-2 flex items-center border-b border-gray-200 cursor-pointer"
+      className="p-4 flex items-center justify-between cursor-pointer"
       onClick={() => onSongClick(song)}
     >
-      <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.title} className="w-12 h-12 mr-4" />
-      <div>
-        <h3 className="text-lg">{song.title}</h3>
-        <p className="text-white">{song.artist}</p>
+      <div className="flex items-center">
+        <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.title} className="w-12 h-12 rounded-full mr-4" />
+        <div>
+          <h3 className="text-lg py-0.5 font-normal leading-6 text-white">{song.name}</h3>
+          <p className="text-sm font-normal text-gray-400">{song.artist}</p>
+        </div>
       </div>
+      {songLength && <div className="text-md leading-6 font-normal text-gray-400">{songLength}</div>}
     </div>
   );
 };

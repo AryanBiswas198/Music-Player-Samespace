@@ -46,7 +46,7 @@ const Player = ({ currentSong }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between p-4 text-white w-1/5">
+    <div className="flex flex-col justify-between p-4 text-white w-1/3">
       <Toaster />
       {currentSong && (
         <>

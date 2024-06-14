@@ -4,7 +4,7 @@ import pfp from "../assets/AryanPhoto.jpeg"
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col justify-between px-8 w-1/5 text-black">
+    <div className="flex flex-col max-h-[98vh] justify-between px-8 w-1/5 text-black">
       <div>
         <img src={Logo} alt='Spotify' className='w-32 cursor-pointer' />
       </div>
