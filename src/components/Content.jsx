@@ -22,7 +22,7 @@ const Content = ({ songs, currentSongIndex, onSongClick }) => {
   };
 
   return (
-    <div className="flex flex-col w-2/6 p-4">
+    <div className="flex flex-col w-2/5 p-4">
       <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
       <Search onSearch={handleSearch} />
       <SongList songs={filteredSongs} currentSongIndex={currentSongIndex} onSongClick={onSongClick} />

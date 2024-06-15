@@ -11,7 +11,7 @@ const Search = ({ onSearch }) => {
       <input
         type="text"
         placeholder="Search Song, Artist"
-        className="py-2 px-4 leading-7 text-lg bg-white bg-opacity-20 rounded-lg w-full text-black"
+        className="py-2 px-4 leading-7 text-lg bg-white bg-opacity-20 rounded-lg w-full text-gray-100"
         onChange={handleSearch}
       />
       <FaSearch className="absolute top-3.5 right-5 cursor-pointer text-gray-500" />

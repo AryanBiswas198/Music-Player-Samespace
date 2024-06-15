@@ -54,14 +54,16 @@ const MainLayout = () => {
   return (
     <div className="flex min-h-[100vh] h-full bg-slate-950 py-5" style={backgroundStyle}>
       <Sidebar />
-      <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
-      {currentSongIndex !== null && (
-        <Player
-          currentSong={songs[currentSongIndex]}
-          nextSong={nextSong}
-          prevSong={prevSong}
-        />
-      )}
+      <div className='flex'>
+        <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
+        {currentSongIndex !== null && (
+          <Player
+            currentSong={songs[currentSongIndex]}
+            nextSong={nextSong}
+            prevSong={prevSong}
+          />
+        )}
+      </div>
     </div>
   );
 };
