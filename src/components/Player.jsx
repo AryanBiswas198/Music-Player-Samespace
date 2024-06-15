@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Howl } from 'howler';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
-const Player = ({ currentSong }) => {
+const Player = ({ currentSong, nextSong, prevSong }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [player, setPlayer] = useState(null);
+  const playerRef = useRef(null);
+
 
   useEffect(() => {
     if (currentSong) {
-      if (player) {
-        player.unload();
+      if (playerRef.current) {
+        playerRef.current.unload();
       }
       const sound = new Howl({
         src: [currentSong.url],
         html5: true,
         onplay: () => toast.success('Playing!'),
         onpause: () => toast.success('Paused'),
+        onend: () => nextSong(),  // Automatically play next song when current one ends
       });
-      setPlayer(sound);
+      playerRef.current = sound;
       sound.play();
       setIsPlaying(true);
     }
   }, [currentSong]);
 
   const playMusic = () => {
-    if (player) {
-      player.play();
+    if (playerRef.current) {
+      playerRef.current.play();
       setIsPlaying(true);
     }
   };
 
   const pauseMusic = () => {
-    if (player) {
-      player.pause();
+    if (playerRef.current) {
+      playerRef.current.pause();
       setIsPlaying(false);
     }
-  };
-
-  const nextSong = () => {
-    // Logic for next song
-  };
-
-  const prevSong = () => {
-    // Logic for previous song
   };
 
   return (

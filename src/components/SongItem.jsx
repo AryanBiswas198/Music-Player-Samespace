@@ -24,7 +24,7 @@ const SongItem = ({ song, onSongClick, isActive }) => {
   return (
     <div
       className={`p-4 flex items-center justify-between cursor-pointer ${isActive ? 'bg-white bg-opacity-20 rounded-lg' : ''}`}
-      onClick={() => onSongClick(song)}
+      onClick={onSongClick}
     >
       <div className="flex items-center">
         <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.title} className="w-12 h-12 rounded-full mr-4" />
