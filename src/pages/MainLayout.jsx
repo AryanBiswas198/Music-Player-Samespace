@@ -54,7 +54,7 @@ const MainLayout = () => {
   return (
     <div className="flex min-h-[100vh] h-full bg-slate-950 py-5" style={backgroundStyle}>
       <Sidebar />
-      <div className='flex'>
+      <div className='flex w-full ml-11'>
         <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
         {currentSongIndex !== null && (
           <Player
