@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Howl } from 'howler';
 
-const SongItem = ({ song, onSongClick }) => {
+const SongItem = ({ song, onSongClick, isActive }) => {
   const [songLength, setSongLength] = useState(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const SongItem = ({ song, onSongClick }) => {
 
   return (
     <div
-      className="p-4 flex items-center justify-between cursor-pointer"
+      className={`p-4 flex items-center justify-between cursor-pointer ${isActive ? 'bg-white bg-opacity-20 rounded-lg' : ''}`}
       onClick={() => onSongClick(song)}
     >
       <div className="flex items-center">

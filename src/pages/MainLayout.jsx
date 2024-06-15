@@ -32,7 +32,7 @@ const MainLayout = () => {
   return (
     <div className="flex h-full bg-slate-950 py-5" style={backgroundStyle}>
       <Sidebar />
-      <Content onSongClick={handleSongClick} />
+      <Content onSongClick={handleSongClick} currentSong={currentSong} />
       <Player currentSong={currentSong} />
     </div>
   );

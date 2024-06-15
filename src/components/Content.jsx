@@ -4,7 +4,7 @@ import Search from './Search';
 import SongList from './SongList';
 import axios from 'axios';
 
-const Content = ({ onSongClick }) => {
+const Content = ({ onSongClick, currentSong }) => {
   const [songs, setSongs] = useState([]);
   const [filteredSongs, setFilteredSongs] = useState([]);
   const [activeTab, setActiveTab] = useState('For You');
@@ -38,7 +38,7 @@ const Content = ({ onSongClick }) => {
     <div className="flex flex-col w-2/6 p-4">
       <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
       <Search onSearch={handleSearch} />
-      <SongList songs={filteredSongs} onSongClick={onSongClick} />
+      <SongList songs={filteredSongs} onSongClick={onSongClick} currentSong={currentSong} />
     </div>
   );
 };
