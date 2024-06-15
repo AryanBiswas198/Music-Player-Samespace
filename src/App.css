@@ -1,0 +1,41 @@
+/* styles.css */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: linear-gradient(to right, white 0%, white 0%, #fff 0%, #ccc 100%);
+    border-radius: 8px;
+    border: none;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px; /* Size of the thumb */
+    height: 16px; /* Size of the thumb */
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    margin-top: -4px; /* Center the thumb */
+  }
+  
+  input[type="range"]:focus {
+    outline: none; /* Remove focus outline */
+  }
+  
+  /* Custom styling for the slider with dynamic color */
+  input[type="range"].styled-range {
+    background: linear-gradient(to right, white 0%, white 0%, #ccc 0%, #ccc 100%);
+  }
+  
+  input[type="range"].styled-range::-webkit-slider-runnable-track {
+    background: transparent;
+  }
+  

@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Howl } from 'howler';
 import { toast } from 'react-hot-toast';
+import { BsThreeDots, BsFillPlayFill, BsFillPauseFill, BsFillVolumeUpFill, BsFillVolumeMuteFill } from 'react-icons/bs';
+import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from 'react-icons/tb';
+import "../App.css"
 
 const Player = ({ currentSong, nextSong, prevSong }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
   const playerRef = useRef(null);
 
   useEffect(() => {
@@ -16,6 +20,7 @@ const Player = ({ currentSong, nextSong, prevSong }) => {
       const sound = new Howl({
         src: [currentSong.url],
         html5: true,
+        mute: isMuted,
         onplay: () => {
           toast.success('Playing!');
           setIsPlaying(true);
@@ -66,6 +71,13 @@ const Player = ({ currentSong, nextSong, prevSong }) => {
     setCurrentTime(seekTime);
   };
 
+  const toggleMute = () => {
+    if (playerRef.current) {
+      playerRef.current.mute(!isMuted); // Toggle mute state
+      setIsMuted(!isMuted); // Update state
+    }
+  };
+
   const formatTime = (secs) => {
     const minutes = Math.floor(secs / 60);
     const seconds = Math.floor(secs % 60);
@@ -73,15 +85,15 @@ const Player = ({ currentSong, nextSong, prevSong }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 text-white w-3/5 h-full">
+    <div className="flex flex-col items-center py-11 p-4 text-white w-3/5 h-full">
       {currentSong && (
         <>
-          <div className="text-center mb-4">
-            <img src={`https://cms.samespace.com/assets/${currentSong.cover}`} alt="Cover" className="w-64 h-64 mb-4 rounded" />
-            <h3 className="text-xl">{currentSong.name}</h3>
-            <p className="text-gray-400">{currentSong.artist}</p>
+          <div className="mb-4">
+            <h3 className="text-3xl leading-9 font-bold tracking-wide">{currentSong.name}</h3>
+            <p className="text-gray-400 text-lg font-normal leading-6 tracking-wide pb-8 pt-2">{currentSong.artist}</p>
+            <img src={`https://cms.samespace.com/assets/${currentSong.cover}`} alt="Cover" className="w-[470px] h-[470px] rounded-lg" />
           </div>
-          <div className="flex items-center justify-center mb-4">
+          <div className="flex items-center justify-center mb-4 w-[460px]" >
             <input
               type="range"
               min="0"
@@ -91,12 +103,23 @@ const Player = ({ currentSong, nextSong, prevSong }) => {
               className="w-full"
             />
           </div>
-          <div className="flex items-center justify-center">
-            <button onClick={prevSong} className="mr-4">Previous</button>
-            <button onClick={isPlaying ? pauseMusic : playMusic} className="mx-4">
-              {isPlaying ? 'Pause' : 'Play'}
-            </button>
-            <button onClick={nextSong} className="ml-4">Next</button>
+          <div className="flex justify-between w-[460px] my-5 gap-x-10">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white bg-opacity-20 ">
+              <BsThreeDots size={28} className='text-white' />
+            </div>
+            <div className="flex items-center justify-center space-x-8">
+              <button className='text-white text-opacity-50' onClick={prevSong}><TbPlayerTrackPrevFilled size={32} /></button>
+              <div className='w-12 h-12 rounded-full flex items-center justify-center bg-white'>
+                <button className='text-black' onClick={isPlaying ? pauseMusic : playMusic}>
+                  {isPlaying ? <BsFillPauseFill size={28} /> : <BsFillPlayFill size={28} />}
+                </button>
+              </div>
+              <button className='text-white text-opacity-50' onClick={nextSong}><TbPlayerTrackNextFilled size={32} /></button>
+            </div>
+            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white bg-opacity-20 cursor-pointer" onClick={toggleMute}>
+              {/* <BsFillVolumeUpFill size={32} className='text-white' /> */}
+              {isMuted ? <BsFillVolumeMuteFill size={28} className='text-white' /> : <BsFillVolumeUpFill size={28} className='text-white' />}
+            </div>
           </div>
         </>
       )}
