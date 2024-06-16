@@ -9,12 +9,14 @@ import { FaTimes } from 'react-icons/fa';
 import Logo from "../assets/Spotify.png"
 import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 const MainLayout = () => {
   const [songs, setSongs] = useState([]);
   const [currentSongIndex, setCurrentSongIndex] = useState(null);
   const [backgroundStyle, setBackgroundStyle] = useState({});
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 768px)'
@@ -27,6 +29,8 @@ const MainLayout = () => {
         setSongs(response.data.data);
       } catch (error) {
         console.error('Error fetching songs:', error);
+      } finally {
+        setLoading(false); // Set loading to false when songs are fetched (success or error)
       }
     };
     fetchSongs();
@@ -43,7 +47,8 @@ const MainLayout = () => {
           const colors = colorThief.getColor(img);
           const darkenedColor = colors.map(color => Math.floor(color * 0.5));
           setBackgroundStyle({
-            background: `linear-gradient(to left, rgba(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]}, 2), rgba(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]}, 1))`
+            background: `linear-gradient(to left, rgba(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]}, 2), rgba(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]}, 1))`,
+            transition: 'background-position 0.5s ease-in-out'
           });
         };
       }
@@ -70,17 +75,25 @@ const MainLayout = () => {
       <Navbar onMenuClick={toggleMenu} />
       <Sidebar />
       <div className='flex w-full mx-auto md:ml-1 xl:ml-8'>
-        {isDesktopOrLaptop && (
-          <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
-        )}
-        {currentSongIndex !== null ? (
-          <Player
-            currentSong={songs[currentSongIndex]}
-            nextSong={nextSong}
-            prevSong={prevSong}
-          />
+        {loading ? (
+          <div className="flex justify-center items-center w-full h-full">
+            <ClipLoader size={150} color={"#ffffff"} loading={loading} />
+          </div>
         ) : (
-          <WelcomeMessage onButtonClick={toggleMenu} />
+          <>
+            {isDesktopOrLaptop && (
+              <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
+            )}
+            {currentSongIndex !== null ? (
+              <Player
+                currentSong={songs[currentSongIndex]}
+                nextSong={nextSong}
+                prevSong={prevSong}
+              />
+            ) : (
+              <WelcomeMessage onButtonClick={toggleMenu} />
+            )}
+          </>
         )}
       </div>
 
