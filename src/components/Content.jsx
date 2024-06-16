@@ -8,6 +8,7 @@ const Content = ({ songs, currentSongIndex, onSongClick }) => {
   const [shuffledSongs, setShuffledSongs] = useState([]);
   const [currentShuffledIndex, setCurrentShuffledIndex] = useState(null);
   const [activeTab, setActiveTab] = useState('For You');
+  const [originalIndices, setOriginalIndices] = useState([]);
 
   useEffect(() => {
     filterSongs(songs, activeTab);
@@ -20,10 +21,12 @@ const Content = ({ songs, currentSongIndex, onSongClick }) => {
       setFilteredSongs(shuffled);
       setShuffledSongs(shuffled);
       setCurrentShuffledIndex(null); 
+      setOriginalIndices(shuffled.map(song => songs.indexOf(song)));
     } else {
       setFilteredSongs(songs);
       setShuffledSongs([]);
       setCurrentShuffledIndex(null); 
+      setOriginalIndices(songs.map((_, index) => index));
     }
   };
 
@@ -37,9 +40,17 @@ const Content = ({ songs, currentSongIndex, onSongClick }) => {
   };
 
   const handleSearch = (query) => {
-    setFilteredSongs(
-      (activeTab === 'Top Tracks' ? shuffledSongs : songs).filter(song => song.name.toLowerCase().includes(query.toLowerCase()))
-    );
+    const lowercasedQuery = query.toLowerCase();
+    const filtered = songs.filter(song => song.name.toLowerCase().includes(lowercasedQuery));
+    setFilteredSongs(filtered);
+
+    if (activeTab === 'Top Tracks') {
+      const shuffledFiltered = filtered.filter(song => shuffledSongs.some(shuffledSong => shuffledSong.id === song.id));
+      setFilteredSongs(shuffledFiltered);
+      setOriginalIndices(shuffledFiltered.map(song => songs.indexOf(song)));
+    } else {
+      setOriginalIndices(filtered.map(song => songs.indexOf(song)));
+    }
   };
 
   const handleTabChange = (tab) => {
@@ -48,8 +59,7 @@ const Content = ({ songs, currentSongIndex, onSongClick }) => {
   };
 
   const handleSongClick = (index) => {
-    const songToPlay = activeTab === 'Top Tracks' ? shuffledSongs[index] : filteredSongs[index];
-    const actualIndex = songs.findIndex(song => song.id === songToPlay.id);
+    const actualIndex = originalIndices[index];
     onSongClick(actualIndex);
     if (activeTab === 'Top Tracks') {
       setCurrentShuffledIndex(index);
@@ -60,8 +70,11 @@ const Content = ({ songs, currentSongIndex, onSongClick }) => {
     <div className="flex flex-col md:w-2/5 p-4">
       <Tabs activeTab={activeTab} onTabChange={handleTabChange} />
       <Search onSearch={handleSearch} />
-      {/* <SongList songs={filteredSongs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} /> */}
-      <SongList songs={filteredSongs} currentSongIndex={currentShuffledIndex !== null ? currentShuffledIndex : currentSongIndex} onSongClick={handleSongClick} />
+      <SongList
+        songs={filteredSongs}
+        currentSongIndex={currentShuffledIndex !== null ? currentShuffledIndex : originalIndices.indexOf(currentSongIndex)}
+        onSongClick={handleSongClick}
+      />
     </div>
   );
 };
