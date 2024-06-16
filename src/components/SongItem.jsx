@@ -29,8 +29,8 @@ const SongItem = ({ song, onSongClick, isActive }) => {
       <div className="flex items-center">
         <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.title} className="w-12 h-12 rounded-full mr-4" />
         <div>
-          <h3 className="text-lg py-0.5 font-normal leading-6 text-white">{song.name}</h3>
-          <p className="text-sm font-normal text-gray-400">{song.artist}</p>
+          <h3 className="text-lg lg:text-xl py-0.5 font-normal leading-6 text-white">{song.name}</h3>
+          <p className="text-sm lg:text-md font-normal text-gray-400">{song.artist}</p>
         </div>
       </div>
       {songLength && <div className="text-md leading-6 font-normal text-gray-400">{songLength}</div>}
