@@ -5,6 +5,7 @@ import Content from '../components/Content';
 import Player from '../components/Player';
 import ColorThief from 'color-thief-browser';
 import { FaTimes } from 'react-icons/fa';
+import Logo from "../assets/Spotify.png"
 import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 
@@ -67,7 +68,7 @@ const MainLayout = () => {
     <div className="flex flex-col md:flex-row min-h-[100vh] min-w-[100vw] h-full bg-slate-950 py-5" style={backgroundStyle}>
       <Navbar onMenuClick={toggleMenu} />
       <Sidebar />
-      <div className='flex w-full mx-auto md:ml-2 lg:ml-11'>
+      <div className='flex w-full mx-auto md:ml-1 xl:ml-8'>
         {isDesktopOrLaptop && (
           <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
         )}
@@ -81,13 +82,14 @@ const MainLayout = () => {
       </div>
 
       <div
-        className={`fixed md:hidden top-0 left-0 h-full bg-gray-800 transition-transform duration-300 ease-in-out ${
+        className={`fixed md:hidden top-0 left-0 h-full bg-gray-950 transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ width: '75%' }}
+        style={{ width: '75%', overflowY: 'auto' } }
       >
         {/* Cross Icon */}
-        <div className="flex justify-end p-4">
+        <div className="flex justify-between p-4 mt-1">
+          <img src={Logo} alt="Spotify" className="w-32 cursor-pointer" />
           <FaTimes size={32} className="text-white cursor-pointer" onClick={toggleMenu} />
         </div>
         <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
