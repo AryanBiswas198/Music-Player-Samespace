@@ -60,3 +60,7 @@ input[type="range"] {
   .vibrant-animation {
     animation: vibrantZoomOutFadeIn 1.5s ease-out forwards;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
