@@ -1,0 +1,18 @@
+import React, { useState } from 'react';
+import { FaBars } from 'react-icons/fa'; // Install react-icons if you haven't already
+import pfp from '../assets/AryanPhoto.jpeg';
+import Logo from '../assets/Spotify.png';
+
+const Navbar = ({ onMenuClick }) => {
+  return (
+    <div className="flex h-10 justify-between items-center p-4 text-white md:hidden mt-3 mb-6">
+      <div className="flex items-center">
+        <FaBars size={32} className="mr-4 cursor-pointer" onClick={onMenuClick} />
+        <img src={Logo} alt="Spotify" className="w-32 cursor-pointer" />
+      </div>
+      <img src={pfp} alt="Profile" className="rounded-full w-11" />
+    </div>
+  );
+};
+
+export default Navbar;

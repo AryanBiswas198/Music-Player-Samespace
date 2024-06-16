@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Content from '../components/Content';
 import Player from '../components/Player';
@@ -9,6 +10,7 @@ const MainLayout = () => {
   const [songs, setSongs] = useState([]);
   const [currentSongIndex, setCurrentSongIndex] = useState(null);
   const [backgroundStyle, setBackgroundStyle] = useState({});
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -51,8 +53,13 @@ const MainLayout = () => {
     setCurrentSongIndex((prevIndex) => (prevIndex - 1 + songs.length) % songs.length);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="flex min-h-[100vh] min-w-[100vw] h-full bg-slate-950 py-5" style={backgroundStyle}>
+    <div className="flex flex-col md:flex-row min-h-[100vh] min-w-[100vw] h-full bg-slate-950 py-5" style={backgroundStyle}>
+      <Navbar onMenuClick={toggleMenu} />
       <Sidebar />
       <div className='flex w-full mx-auto md:ml-2 lg:ml-11'>
         <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />

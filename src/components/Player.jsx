@@ -222,8 +222,8 @@ const Player = ({ currentSong, nextSong, prevSong }) => {
       {currentSong && (
         <>
           <div className="mb-4 flex flex-col items-start">
-            <h3 className="text-3xl leading-9 font-bold tracking-wide text-center md:text-left">{currentSong.name}</h3>
-            <p className="text-gray-400 text-lg font-normal leading-6 tracking-wide pb-8 pt-2 text-center md:text-left">{currentSong.artist}</p>
+            <h3 className="text-4xl md:text-3xl leading-9 font-bold tracking-wide text-center md:text-left">{currentSong.name}</h3>
+            <p className="text-gray-400 text-xl md:text-lg font-normal leading-6 tracking-wide pb-8 pt-2 text-center md:text-left">{currentSong.artist}</p>
             <img 
               src={`https://cms.samespace.com/assets/${currentSong.cover}`} 
               alt="Cover" 
