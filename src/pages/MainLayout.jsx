@@ -26,11 +26,16 @@ const MainLayout = () => {
     const fetchSongs = async () => {
       try {
         const response = await axios.get('https://cms.samespace.com/items/songs');
-        setSongs(response.data.data);
+        // setSongs(response.data.data);
+        const fetchedSongs = response.data.data.map((song, index) => ({
+          ...song,
+          originalIndex: index
+        }));
+        setSongs(fetchedSongs);
       } catch (error) {
         console.error('Error fetching songs:', error);
       } finally {
-        setLoading(false); // Set loading to false when songs are fetched (success or error)
+        setLoading(false);
       }
     };
     fetchSongs();
