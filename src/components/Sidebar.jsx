@@ -9,7 +9,9 @@ const Sidebar = () => {
         <img src={Logo} alt='Spotify' className='w-32 cursor-pointer' />
       </div>
       <div className='sticky bottom-5 left-0'>
-        <img src={pfp} alt="Profile" className="rounded-full w-11 my-5" />
+        <a href="https://aryanbiswas198.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <img src={pfp} alt="Profile" className="rounded-full w-11 my-5 cursor-pointer" />
+        </a>
       </div>
     </div>
   );

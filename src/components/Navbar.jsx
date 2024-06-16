@@ -10,7 +10,9 @@ const Navbar = ({ onMenuClick }) => {
         <FaBars size={32} className="mr-4 cursor-pointer" onClick={onMenuClick} />
         <img src={Logo} alt="Spotify" className="w-32 cursor-pointer" />
       </div>
-      <img src={pfp} alt="Profile" className="rounded-full w-11" />
+      <a href="https://aryanbiswas198.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <img src={pfp} alt="Profile" className="rounded-full w-11 cursor-pointer" />
+      </a>
     </div>
   );
 };

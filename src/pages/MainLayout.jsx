@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Content from '../components/Content';
 import Player from '../components/Player';
+import WelcomeMessage from '../components/WelcomeMessage';
 import ColorThief from 'color-thief-browser';
 import { FaTimes } from 'react-icons/fa';
 import Logo from "../assets/Spotify.png"
@@ -65,19 +66,21 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-[100vh] min-w-[100vw] h-full bg-slate-950 py-5" style={backgroundStyle}>
+    <div className="flex flex-col md:flex-row min-h-[100vh] min-w-[100vw] h-full bg-gray-950 py-5" style={backgroundStyle}>
       <Navbar onMenuClick={toggleMenu} />
       <Sidebar />
       <div className='flex w-full mx-auto md:ml-1 xl:ml-8'>
         {isDesktopOrLaptop && (
           <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
         )}
-        {currentSongIndex !== null && (
+        {currentSongIndex !== null ? (
           <Player
             currentSong={songs[currentSongIndex]}
             nextSong={nextSong}
             prevSong={prevSong}
           />
+        ) : (
+          <WelcomeMessage onButtonClick={toggleMenu} />
         )}
       </div>
 
