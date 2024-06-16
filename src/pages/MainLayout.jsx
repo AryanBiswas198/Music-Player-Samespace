@@ -4,6 +4,8 @@ import Sidebar from '../components/Sidebar';
 import Content from '../components/Content';
 import Player from '../components/Player';
 import ColorThief from 'color-thief-browser';
+import { FaTimes } from 'react-icons/fa';
+import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 
 const MainLayout = () => {
@@ -11,6 +13,10 @@ const MainLayout = () => {
   const [currentSongIndex, setCurrentSongIndex] = useState(null);
   const [backgroundStyle, setBackgroundStyle] = useState({});
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 768px)'
+  });
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -62,7 +68,9 @@ const MainLayout = () => {
       <Navbar onMenuClick={toggleMenu} />
       <Sidebar />
       <div className='flex w-full mx-auto md:ml-2 lg:ml-11'>
-        <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
+        {isDesktopOrLaptop && (
+          <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
+        )}
         {currentSongIndex !== null && (
           <Player
             currentSong={songs[currentSongIndex]}
@@ -70,6 +78,19 @@ const MainLayout = () => {
             prevSong={prevSong}
           />
         )}
+      </div>
+
+      <div
+        className={`fixed md:hidden top-0 left-0 h-full bg-gray-800 transition-transform duration-300 ease-in-out ${
+          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        style={{ width: '75%' }}
+      >
+        {/* Cross Icon */}
+        <div className="flex justify-end p-4">
+          <FaTimes size={32} className="text-white cursor-pointer" onClick={toggleMenu} />
+        </div>
+        <Content songs={songs} currentSongIndex={currentSongIndex} onSongClick={handleSongClick} />
       </div>
     </div>
   );
