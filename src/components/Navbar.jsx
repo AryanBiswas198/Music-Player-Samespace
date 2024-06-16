@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBars } from 'react-icons/fa'; // Install react-icons if you haven't already
+import { FaBars } from 'react-icons/fa';
 import pfp from '../assets/AryanPhoto.jpeg';
 import Logo from '../assets/Spotify.png';
 

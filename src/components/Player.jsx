@@ -73,8 +73,8 @@ const Player = ({ currentSong, nextSong, prevSong }) => {
 
   const toggleMute = () => {
     if (playerRef.current) {
-      playerRef.current.mute(!isMuted); // Toggle mute state
-      setIsMuted(!isMuted); // Update state
+      playerRef.current.mute(!isMuted); 
+      setIsMuted(!isMuted); 
     }
   };
 

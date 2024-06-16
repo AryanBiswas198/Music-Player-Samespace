@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaSearch } from 'react-icons/fa'; // Make sure to install react-icons
+import { FaSearch } from 'react-icons/fa'; 
 
 const Search = ({ onSearch }) => {
   const handleSearch = (event) => {
