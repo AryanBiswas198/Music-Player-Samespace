@@ -9,6 +9,7 @@
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "color-thief-browser": "^2.0.2",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-audio-player": "^0.17.0",
     "react-dom": "^18.3.1",

@@ -25,8 +25,7 @@ const MainLayout = () => {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const response = await axios.get('https://cms.samespace.com/items/songs');
-        // setSongs(response.data.data);
+        const response = await axios.get(process.env.REACT_APP_API_URL);
         const fetchedSongs = response.data.data.map((song, index) => ({
           ...song,
           originalIndex: index
@@ -46,7 +45,7 @@ const MainLayout = () => {
         const currentSong = songs[currentSongIndex];
         const img = new Image();
         img.crossOrigin = 'Anonymous';
-        img.src = `https://cms.samespace.com/assets/${currentSong.cover}`;
+        img.src = `${process.env.REACT_APP_IMAGE_URL}${currentSong.cover}`;
         img.onload = () => {
           const colorThief = new ColorThief();
           const colors = colorThief.getColor(img);
